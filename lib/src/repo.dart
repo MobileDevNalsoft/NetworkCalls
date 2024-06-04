@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:network_calls/src/api_response_model.dart';
 import 'package:network_calls/src/logging_interceptor.dart';
 
-class CustomAPI extends HttpOverrides {
+class NetworkCalls extends HttpOverrides {
   final String baseUrl;
   final int connectTimeout;
   final int receiveTimeout;
@@ -18,7 +18,7 @@ class CustomAPI extends HttpOverrides {
   Dio dio;
   LoggingInterceptor loggingInterceptor = LoggingInterceptor();
 
-  CustomAPI(
+  NetworkCalls(
     this.baseUrl,
     this.dio, {
     this.username,
