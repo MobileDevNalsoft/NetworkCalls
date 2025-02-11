@@ -38,8 +38,7 @@ class NetworkCalls extends HttpOverrides {
       ..options.headers = headers ?? {};
     dio.interceptors.add(loggingInterceptor);
     if (kIsWeb) {
-      (dio.httpClientAdapter as BrowserHttpClientAdapter).withCredentials =
-          true;
+      (dio.httpClientAdapter as BrowserHttpClientAdapter);
     }
     else {
     (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
