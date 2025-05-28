@@ -37,16 +37,16 @@ class NetworkCalls extends HttpOverrides {
       ..httpClientAdapter
       ..options.headers = headers ?? {};
     dio.interceptors.add(loggingInterceptor);
-    if (kIsWeb) {
+    // if (kIsWeb) {
       (dio.httpClientAdapter as BrowserHttpClientAdapter);
-    }
-    else {
-    (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
-      final client = HttpClient();
-      client.badCertificateCallback = (cert, host, port) => true;
-      return client;
-    };
-    }
+    // }
+    // else {
+    // (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
+    //   final client = HttpClient();
+    //   client.badCertificateCallback = (cert, host, port) => true;
+    //   return client;
+    // };
+    // }
   }
 
   Future<ApiResponse> get(String uri,
