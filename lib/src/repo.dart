@@ -13,6 +13,7 @@ class NetworkCalls extends HttpOverrides {
   final int maxRedirects;
   final String? username;
   final String? password;
+  final String? contentType;
   final Map<String, dynamic>? headers;
 
   Dio dio;
@@ -23,6 +24,7 @@ class NetworkCalls extends HttpOverrides {
     this.dio, {
     this.username,
     this.password,
+    this.contentType,
     this.connectTimeout = 5,
     this.receiveTimeout = 5,
     this.maxRedirects = 5,
@@ -57,7 +59,9 @@ class NetworkCalls extends HttpOverrides {
                 methodHeaders ??
                 {
                   'Authorization':
-                      'Basic ${base64.encode(utf8.encode('$username:$password'))}'
+                      'Basic ${base64.encode(utf8.encode('$username:$password'))}',
+                      'Accept': 'application/json',
+                      'Content-Type': contentType
                 }),
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
@@ -89,7 +93,9 @@ class NetworkCalls extends HttpOverrides {
                 methodHeaders ??
                 {
                   'Authorization':
-                      'Basic ${base64.encode(utf8.encode('$username:$password'))}'
+                      'Basic ${base64.encode(utf8.encode('$username:$password'))}',
+                      'Accept': 'application/json',
+                      'Content-Type': contentType
                 }),
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
@@ -120,7 +126,9 @@ class NetworkCalls extends HttpOverrides {
                 methodHeaders ??
                 {
                   'Authorization':
-                      'Basic ${base64.encode(utf8.encode('$username:$password'))}'
+                      'Basic ${base64.encode(utf8.encode('$username:$password'))}',
+                      'Accept': 'application/json',
+                      'Content-Type': contentType
                 }),
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
@@ -149,7 +157,9 @@ class NetworkCalls extends HttpOverrides {
                 methodHeaders ??
                 {
                   'Authorization':
-                      'Basic ${base64.encode(utf8.encode('$username:$password'))}'
+                      'Basic ${base64.encode(utf8.encode('$username:$password'))}',
+                      'Accept': 'application/json',
+                      'Content-Type': contentType
                 }),
         cancelToken: cancelToken,
       );
