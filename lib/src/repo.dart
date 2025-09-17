@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-class CustomAPI extends HttpOverrides {
+class NetworkCalls extends HttpOverrides {
   final String baseUrl;
   final int connectTimeout;
   final int receiveTimeout;
@@ -17,7 +17,7 @@ class CustomAPI extends HttpOverrides {
   Dio dio;
   LoggingInterceptor loggingInterceptor = LoggingInterceptor();
 
-  CustomAPI(
+  NetworkCalls(
     this.baseUrl,
     this.dio, {
     this.username,
@@ -35,17 +35,11 @@ class CustomAPI extends HttpOverrides {
       ..httpClientAdapter
       ..options.headers = headers ?? {};
     dio.interceptors.add(loggingInterceptor);
-    // if (kIsWeb) {
-    //   (dio.httpClientAdapter as BrowserHttpClientAdapter).withCredentials =
-    //       true;
-    // }
-    // else {
     (dio.httpClientAdapter as IOHttpClientAdapter).createHttpClient = () {
       final client = HttpClient();
       client.badCertificateCallback = (cert, host, port) => true;
       return client;
     };
-    //}
   }
 
   Future<ApiResponse> get(String uri,
@@ -181,19 +175,4 @@ class LoggingInterceptor extends InterceptorsWrapper {
     print("ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}");
     return super.onError(err, handler);
   }
-}
-
-class ApiResponse {
-  final Response? response;
-  final dynamic error;
-
-  ApiResponse(this.response, this.error);
-
-  ApiResponse.withError(dynamic errorValue)
-      : response = null,
-        error = errorValue;
-
-  ApiResponse.withSuccess(Response responseValue)
-      : response = responseValue,
-        error = null;
 }
